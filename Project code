@@ -1,0 +1,31 @@
+import nltk
+from nltk.sentiment.vader import SentimentIntensityAnalyzer
+
+# Download VADER lexicon (if not already downloaded)
+nltk.download('vader_lexicon')
+
+# Initialize the VADER sentiment analyzer
+sia = SentimentIntensityAnalyzer()
+
+# Sample financial news headlines
+headlines = [
+    "Stock market hits record high on strong earnings reports.",
+    "Investors worried about economic downturn, stocks plummet.",
+    "Tech company announces positive quarterly results, shares soar."
+]
+
+# Analyze sentiment for each headline
+for headline in headlines:
+    sentiment = sia.polarity_scores(headline)
+    compound_score = sentiment['compound']
+
+    if compound_score > 0:
+        sentiment_label = "Positive"
+    elif compound_score < 0:
+        sentiment_label = "Negative"
+    else:
+        sentiment_label = "Neutral"
+
+    print(f"Headline: {headline}")
+    print(f"Sentiment: {sentiment_label}")
+    print(f"Compound Score: {compound_score}\n")
